@@ -1,6 +1,6 @@
 # modules
 from socket import *
-import json, sys
+import json, sys, threading
 
 
 # opening the file
@@ -44,23 +44,11 @@ def checking_credentials(username : str, pssd : str) -> bool:
 
 
 
-
-# network configurations
-serverPort = 12000
-serverSocket = socket(AF_INET, SOCK_STREAM)
-serverSocket.bind(('127.0.0.1', serverPort))
-serverSocket.listen(3)
-print("The server is ready to receive")
-
-
-while True:
-    connectionSocket, addr = serverSocket.accept()
-    data = connectionSocket.recv(1024)
-
-    print("Connected to ",addr)
+def handle_client(connectionSocket, addr):
+    print("Connected to ", addr)
 
     while True:
-
+        data = connectionSocket.recv(1024)
         if not data:
             break
 
@@ -85,3 +73,20 @@ while True:
             print("Disconnected to ", addr)
             break
     connectionSocket.close()
+
+
+
+
+
+# network configurations
+serverPort = 12000
+serverSocket = socket(AF_INET, SOCK_STREAM)
+serverSocket.bind(('127.0.0.1', serverPort))
+serverSocket.listen(3)
+print("The server is ready.")
+
+
+while True:
+    connectionSocket, addr = serverSocket.accept()
+    client_thread = threading.Thread(target=handle_client, args=(connectionSocket,addr))
+    client_thread.start()
