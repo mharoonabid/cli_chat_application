@@ -5,8 +5,8 @@ import json, sys, threading
 
 
 # network configurations
-serverPort = 12000
-serverName = "127.0.0.1"
+SERVER_PORT = 12000
+SERVER_ADDR = "127.0.0.1"
 NUMBER_CONNECTIONS = 5
 
 
@@ -156,9 +156,9 @@ def handle_client(connectionSocket, addr):
 def start_server():
 
     serverSocket = socket(AF_INET, SOCK_STREAM)
-    serverSocket.bind((serverName, serverPort))
+    serverSocket.bind((SERVER_ADDR, SERVER_PORT))
     serverSocket.listen(NUMBER_CONNECTIONS)
-    print("The server is ready.")
+    print(f"The server is ready.\nAddress: {SERVER_ADDR}\nPort:{SERVER_PORT}")
 
     # getting requests from multiple clients
     while True:

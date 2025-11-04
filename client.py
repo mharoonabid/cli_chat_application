@@ -7,8 +7,8 @@ from enums import *
 
 
 # network configurations
-serverName = '127.0.0.1'
-serverPort = 12000
+SERVER_ADDR = '127.0.0.1'
+SERVER_PORT = 12000
 clientSocket = socket(AF_INET, SOCK_STREAM)
 
 
@@ -19,7 +19,7 @@ print_lock = threading.Lock()
 
 
 # connecting with server
-clientSocket.connect((serverName, serverPort))
+clientSocket.connect((SERVER_ADDR, SERVER_PORT))
 
 
 # clear screen

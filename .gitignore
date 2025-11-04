@@ -1,3 +1,4 @@
 .idea/
 .venv/
 school_details/
+__pycache__/
